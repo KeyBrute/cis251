@@ -9,8 +9,11 @@ using namespace std;
 int main () {
     // Opening the file
     ifstream file("datalocations.txt");
- 
+    ifstream InFile;
+    ofstream OutFile("combined.txt");
+
     vector<string> v;
+    vector<string> v2;
     string str;
  
     // Read the next line from File until it reaches the
@@ -20,10 +23,19 @@ int main () {
         // and push it in vector function until end of file
         v.push_back(str);
     }
- 
-    // Printing each new line separately
-    copy(v.begin(), v.end(),
-         ostream_iterator<string>(cout, "\n"));
- 
+
+    file.close();
+    int data;
+    for (auto name : v){
+
+        file.open(name);
+        while (file >> data) {
+            OutFile << data << " ";
+        }
+        file.close();
+
+    }
+
+    OutFile.close();
     return 0;
 }
